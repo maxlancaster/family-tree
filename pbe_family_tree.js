@@ -28,7 +28,7 @@ var pbe_family_tree = {
         }, {
             "name": "optimization",
                 "children": [{
-                "name": "AspectRatioBanker",
+                "name": "Aspect Ratio Banker",
                     "size": 7074
             }]
         }]

@@ -12,9 +12,9 @@ var root = pbe_family_tree;
 var i = 0,
     duration = 750,
     rectW = 60,
-    rectH = 30;
+    rectH = 40;
 
-var tree = d3.layout.tree().nodeSize([70, 40]);
+var tree = d3.layout.tree().nodeSize([90, 40]);
 var diagonal = d3.svg.diagonal()
     .projection(function (d) {
     return [d.x + rectW / 2, d.y + rectH / 2];
@@ -79,13 +79,17 @@ function update(source) {
     });
 
     nodeEnter.append("text")
-        .attr("x", rectW / 2)
-        .attr("y", rectH / 2)
-        .attr("dy", ".35em")
         .attr("text-anchor", "middle")
-        .text(function (d) {
-        return d.name;
-    });
+        .each(function (d) {
+            var lines = wordwrap(d.name)
+            for (var i = 0; i < lines.length; i++) {
+               d3.select(this).append("tspan")
+                   .attr("dy",13)
+                   .attr("x",function(d) { 
+                        return d.children1 || d._children1 ? -rectW/2 : rectW/2; })
+                    .text(lines[i])
+            }
+        });
 
     // Transition nodes to their new position.
     var nodeUpdate = node.transition()
@@ -203,4 +207,9 @@ function redraw() {
   svg.attr("transform",
       "translate(" + d3.event.translate + ")"
       + " scale(" + d3.event.scale + ")");
+}
+
+function wordwrap(text) {
+   var lines=text.split(" ")
+   return lines
 }
