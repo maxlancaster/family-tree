@@ -1,7 +1,7 @@
 var pbe_family_tree = {
 
     // begin overall root
-    "name": "pbe_family_tree",     
+    "name": "undocumented before this",     
     "children": [{
         "name": "Chris Brooks 1969",
             "children": [{

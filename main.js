@@ -1,34 +1,31 @@
-var margin = {
-    top: 20,
-    right: 20,
-    bottom: 20,
-    left: 20
-},
-width = window.innerHeight - margin.right - margin.left,
-height = window.innerWidth - margin.top - margin.bottom;
+var margin = {top: 20, right: 120, bottom: 20, left: 140},
+    width = 1900 - margin.right - margin.left,
+    height = window.innerHeight - margin.top - margin.bottom - 50;
 
 var root = pbe_family_tree;
 
 var i = 0,
-    duration = 750,
-    rectW = 60,
-    rectH = 40;
+    duration = 750
 
-var tree = d3.layout.tree().nodeSize([90, 40]);
+var tree = d3.layout.tree().size([height, width]);
 var diagonal = d3.svg.diagonal()
     .projection(function (d) {
-    return [d.x + rectW / 2, d.y + rectH / 2];
+    return [d.y, d.x];
 });
 
-var svg = d3.select("body").append("svg").attr("width", height).attr("height", width)
-    .call(zm = d3.behavior.zoom().scaleExtent([1,3]).on("zoom", redraw)).append("g")
-    .attr("transform", "translate(" + 350 + "," + 20 + ")");
+var svg = d3.select("body")
+            .append("svg")
+            .attr("width", width + margin.right + margin.left)
+            .attr("height", height + margin.top + margin.bottom)
+            // .call(zm = d3.behavior.zoom().scaleExtent([1,3]).on("zoom", redraw))
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 //necessary so that zoom knows where to zoom and unzoom from
-zm.translate([600, 20]);
+// zm.translate([600, 20]);
 
-root.x0 = 0;
-root.y0 = height / 2;
+root.x0 = height/2;
+root.y0 = 0;
 
 function collapse(d) {
     if (d.children) {
@@ -65,47 +62,35 @@ function update(source) {
     var nodeEnter = node.enter().append("g")
         .attr("class", "node")
         .attr("transform", function (d) {
-        return "translate(" + source.x0 + "," + source.y0 + ")";
+        return "translate(" + source.y0 + "," + source.x0 + ")";
     })
         .on("click", click);
 
-    nodeEnter.append("rect")
-        .attr("width", rectW)
-        .attr("height", rectH)
-        .attr("stroke", "black")
-        .attr("stroke-width", 1)
-        .style("fill", function (d) {
-        return d._children ? "lightsteelblue" : "#fff";
-    });
+    nodeEnter.append("circle")
+        .attr("r", 1e-6)
+        .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
     nodeEnter.append("text")
-        .attr("text-anchor", "middle")
-        .each(function (d) {
-            var lines = wordwrap(d.name)
-            for (var i = 0; i < lines.length; i++) {
-               d3.select(this).append("tspan")
-                   .attr("dy",13)
-                   .attr("x",function(d) { 
-                        return d.children1 || d._children1 ? -rectW/2 : rectW/2; })
-                    .text(lines[i])
-            }
-        });
+        .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
+            .attr("dy", "0.35em")
+            .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+            .text(function(d) { return d.name; })
+            .style("fill-opacity", 1e-6);
 
     // Transition nodes to their new position.
     var nodeUpdate = node.transition()
         .duration(duration)
         .attr("transform", function (d) {
-        return "translate(" + d.x + "," + d.y + ")";
+        return "translate(" + d.y + "," + d.x + ")";
     });
 
-    nodeUpdate.select("rect")
-        .attr("width", rectW)
-        .attr("height", rectH)
-        .attr("stroke", "black")
-        .attr("stroke-width", 1)
-        .style("fill", function (d) {
-        return d._children ? "lightsteelblue" : "#fff";
-    });
+    nodeUpdate.select("circle")
+        .attr("r", 4.5)
+        .style("fill", function(d) {
+            if(d._children && d._children.length == 0)
+            return "#fff";
+            return d._children ? "lightsteelblue" : "#fff"; 
+        });
 
     nodeUpdate.select("text")
         .style("fill-opacity", 1);
@@ -114,19 +99,15 @@ function update(source) {
     var nodeExit = node.exit().transition()
         .duration(duration)
         .attr("transform", function (d) {
-        return "translate(" + source.x + "," + source.y + ")";
+        return "translate(" + source.y + "," + source.x + ")";
     })
         .remove();
 
-    nodeExit.select("rect")
-        .attr("width", rectW)
-        .attr("height", rectH)
-    //.attr("width", bbox.getBBox().width)""
-    //.attr("height", bbox.getBBox().height)
-    .attr("stroke", "black")
-        .attr("stroke-width", 1);
+    nodeExit.select("circle")
+        .attr("r", 1e-6);
 
-    nodeExit.select("text");
+    nodeExit.select("text")
+            .style("fill-opacity", 1e-6);;
 
     // Update the links…
     var link = svg.selectAll("path.link")
@@ -137,8 +118,6 @@ function update(source) {
     // Enter any new links at the parent's previous position.
     link.enter().insert("path", "g")
         .attr("class", "link")
-        .attr("x", rectW / 2)
-        .attr("y", rectH / 2)
         .attr("d", function (d) {
         var o = {
             x: source.x0,
@@ -176,17 +155,19 @@ function update(source) {
         d.y0 = d.y;
     });
 
-    node.each(function(d) {
-      if (d.name == "pbe_family_tree") {
-        d3.select(this).remove();
-      }
-    });
+    //delete the root node
 
-    link.each(function(d) {
-      if (d.source.name == "pbe_family_tree") {
-        d3.select(this).remove();
-      }
-    })
+    // node.each(function(d) {
+    //   if (d.name == "pbe_family_tree") {
+    //     d3.select(this).remove();
+    //   }
+    // });
+
+    // link.each(function(d) {
+    //   if (d.source.name == "pbe_family_tree") {
+    //     d3.select(this).remove();
+    //   }
+    // })
 }
 
 // Toggle children on click.
