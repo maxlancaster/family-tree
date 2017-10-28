@@ -1,10 +1,14 @@
+body {
+    overflow: hidden;
+}
+
 .node {
   cursor: pointer;
 }
 
 .node circle {
   fill: #fff;
-  stroke: steelblue;
+  stroke: green;
   stroke-width: 3px;
   }
 
@@ -15,9 +19,52 @@
 .link {
   fill: none;
   stroke: #ccc;
-  stroke-width: 2px;
+  stroke-width: 1px;
 }
 
-body {
-  overflow: hidden;
+.welcome {
+    border: 2px;
+    display: block;
 }
+
+#info_row {
+    width: 100%;
+    pointer-events: none;
+    position: fixed;
+    margin-top: 2%;
+    margin-left: 5%;
+    opacity: 0.8;
+}
+
+#title {
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.info {
+    pointer-events: fill;
+    padding: 10%;
+    background-color: lightgray;
+    border-style: solid;
+    border-width: 2px;
+    border-color: green;
+    border-radius: 4px;
+}
+
+.info p {
+    font-weight: bold;
+    padding: 1%;
+
+}
+
+#error_message {
+    color: red;
+}
+
+#search_button {
+    background-color: green;
+    color: white;
+    font-weight: bold;
+}
+
+
