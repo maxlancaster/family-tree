@@ -229,7 +229,7 @@ var pbe_family_tree = {
                                                                                                                                                                                                     "children": [{
                                                                                                                                                                                                         "name": "Dion Low 2016",
                                                                                                                                                                                                             "children": [{
-                                                                                                                                                                                                                "name": "Billy Rushcel 2018",
+                                                                                                                                                                                                                "name": "Billy Ruschel 2018",
                                                                                                                                                                                                                     "children": [{
                                                                                                                                                                                                                         "name": "Anthony Badea 2019"
                                                                                                                                                                                                                     }]
@@ -860,14 +860,6 @@ var pbe_family_tree = {
                             {
                                 "name": "George Blossom 1979"
                             }]
-                    }]
-            }]
-    }, {
-        "name": "Cliff Podewell 1974",
-            "children": [{
-                "name": "Mark Sneeringer 1976",
-                    "children": [{
-                        "name": "Kendall Jensen 1978"
                     }]
             }]
     }, {
