@@ -9,31 +9,38 @@
   </head>
 
   <body>
-    <div id="container" class="container-fluid">
-    <div class="row" id="info_row">
-        <div class="col-md-2">
-            <h2>Phi Beta Epsilon Family Tree Explorer</h2>
-            <div class="info">
-                <div class="input-group col-md">
-                    <input type="text" class="form-control" placeholder="Search" id="search_input">
-                    <div class="input-group-btn">
-                        <button id="search_button" class="btn">Search</button>
-                    </div>
+        <div class="navbar navbar-default navbar-static-top" id="navbar" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <div class="navbar-brand logo-center visible-lg visible-md">Phi Beta Epsilon Family Tree Explorer</div>
                 </div>
-                <div id="welcome">
-                    <p>Welcome to the PBE Family Tree Explorer</p>
-                    <p>Click and drag to poke around, or search for a name above!</p>
-                    <p>If you notice a mistake, or if you have information about family lines earlier than those here, please  email me at mlancast@mit.edu</p>
-
+                <div class="navbar-form">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" id="search_input">
+                        <div class="input-group-btn">
+                            <button id="search_button" class="btn">Search</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="tree-container"></div>
-	<!-- load the d3.js library -->
-	<script src="jquery-3.2.1.min.js"></script>
-	<script src="d3.v3.min.js"></script>
-	<script src="pbe_family_tree.js"></script>
-	<script src="main.js"></script>  
-</body>
+        <div class="row" id="info_row">
+            <div class="col-xs-2 visible-lg visible-md">
+                <div class="info">
+                    <div id="welcome">
+                        <p>Welcome to the PBE Family Tree Explorer</p>
+                        <p>Click and drag to poke around, or search for a name above!</p>
+                        <p>If you notice a mistake, or if you have information about family lines earlier than those here, please  email me at mlancast@mit.edu</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tree-container"></div>
+	    <!-- load the d3.js library -->
+	    <script src="jquery-3.2.1.min.js"></script>
+	    <script src="d3.v3.min.js"></script>
+	    <script src="pbe_family_tree.js"></script>
+	    <script src="Family_tree.js"></script>
+        <script src="main.js"></script> 
+    </body>
 </html>
