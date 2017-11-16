@@ -51,14 +51,6 @@ var pbe_family_tree = {
                     }]
             }]
     }, {
-        "name": "Cliff Podewell 1974",
-            "children": [{
-                "name": "Mark Sneeringer 1976",
-                    "children": [{
-                        "name": "Kendall Jensen 1978"
-                    }]
-            }]
-    }, {
         "name": "John Pettersen 1975",
             "children": [{
                 "name": "Marty Cawthon 1977",
@@ -127,6 +119,15 @@ var pbe_family_tree = {
                                                             }]
                                                     }]
                                             }]
+                                    }]
+                            }]
+                    },
+                    {
+                        "name": "Cliff Podewell 1974",
+                            "children": [{
+                                "name": "Mark Sneeringer 1976",
+                                    "children": [{
+                                        "name": "Kendall Jensen 1978"
                                     }]
                             }]
                     }]
