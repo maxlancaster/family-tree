@@ -58,6 +58,19 @@ var Family_tree = function() {
         }
     }
 
+    that.expandAll = function() {
+        expand(root); 
+        update(root);
+    }
+
+    that.collapseAll = function() {
+        root.children.forEach(collapse);
+        collapse(root);
+        root.children = root._children;
+        root._children = null;
+        update(root);
+    }    
+
     function searchTree(node, query, path) {
         if (node.name.toLowerCase().indexOf(query) !== -1) {
             // found a match

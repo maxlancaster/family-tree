@@ -12,6 +12,14 @@
         }
     });
 
+    document.getElementById("expand_all_button").addEventListener("click", function(e) {
+        tree.expandAll();
+    });
+
+    document.getElementById("collapse_all_button").addEventListener("click", function(e) {
+        tree.collapseAll();
+    });
+
     tree.generate_tree();
 
 })()
