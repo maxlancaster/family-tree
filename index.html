@@ -9,13 +9,16 @@
   </head>
 
   <body>
-        <div class="navbar navbar-default navbar-static-top" id="navbar" role="navigation">
+        <div class="navbar navbar-default navbar-static-top" id="navbar_one" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <div class="navbar-brand logo-center visible-lg visible-md">Phi Beta Epsilon Family Tree Explorer</div>
+                    <div class="navbar-brand logo-right">Phi Beta Epsilon Family Tree Explorer</div>
                 </div>
-                <div class="navbar-form">
-                    <div class="input-group">
+            </div>
+        </div>
+        <div class="navbar navbar-default" id="navbar_two">
+            <div class="navbar-form" id="input_section">
+                    <div class="input-group" id="input_group">
                         <input type="text" class="form-control" placeholder="Search" id="search_input">
                         <div class="input-group-btn">
                             <button id="search_button" class="btn">Search</button>
@@ -24,7 +27,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
         <div class="row" id="info_row">
             <div class="col-xs-2 visible-lg visible-md">

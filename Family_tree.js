@@ -45,7 +45,7 @@ var Family_tree = function() {
         var path = searchTree(root, query, []);
         if (document.getElementById("error_message")) {
             var error_node = document.getElementById("error_message");
-            document.getElementById("welcome").removeChild(error_node);
+            document.getElementById("input_section").removeChild(error_node);
         }
         if (path) {
             openPaths(path);
@@ -53,7 +53,7 @@ var Family_tree = function() {
             var no_results = document.createElement("p");
             no_results.id = "error_message";
             no_results.innerHTML = "no results found for query: " + query;
-            document.getElementById("welcome").appendChild(no_results);
+            document.getElementById("input_section").appendChild(no_results);
             root.children.forEach(collapse);
         }
     }
