@@ -42,19 +42,26 @@ var Family_tree = function() {
     that.search = function() {
         root.children.forEach(collapse);
         var query = document.getElementById("search_input").value.toLowerCase();
-        var path = searchTree(root, query, []);
-        if (document.getElementById("error_message")) {
-            var error_node = document.getElementById("error_message");
-            document.getElementById("input_section").removeChild(error_node);
-        }
-        if (path) {
-            openPaths(path);
-        } else {
-            var no_results = document.createElement("p");
-            no_results.id = "error_message";
-            no_results.innerHTML = "no results found for query: " + query;
-            document.getElementById("input_section").appendChild(no_results);
-            root.children.forEach(collapse);
+        var find_all = filterQuery(query);
+        if (find_all.length <= 1) { // 0 or 1 node matches this query
+            var path = searchTree(root, query, []);
+            if (document.getElementById("error_message")) {
+                var error_node = document.getElementById("error_message");
+                document.getElementById("input_section").removeChild(error_node);
+            }
+            if (path) {
+                console.log(path);
+                openPaths(path);
+                highlightPath(path[path.length-1]); // highlight the path to the leaf
+            } else {
+                var no_results = document.createElement("p");
+                no_results.id = "error_message";
+                no_results.innerHTML = "no results found for query: " + query;
+                document.getElementById("input_section").appendChild(no_results);
+                root.children.forEach(collapse);
+            }
+        } else { // multiple nodes match this query
+            
         }
     }
 
@@ -69,7 +76,30 @@ var Family_tree = function() {
         root.children = root._children;
         root._children = null;
         update(root);
-    }    
+    }
+
+    // helper function to return a list of nodes for which the query matches
+    function filterQuery(query) {
+        var output = [];
+        function search(query, node) {
+            if (node.name.toLowerCase().indexOf(query) !== -1) {
+                output.push(node.name);
+            }
+            if (node.children || node._children) {
+                // node has children
+                var children = (node.children) ? node.children : node._children;
+                for (var i=0; i<children.length; i++) {
+                    search(query, children[i]);
+                }
+            }
+        }
+        search(query, root);
+        return output;
+    }
+
+    function highlightPath(leaf) {
+        // TODO: implement me
+    }
 
     function searchTree(node, query, path) {
         if (node.name.toLowerCase().indexOf(query) !== -1) {
@@ -108,9 +138,9 @@ var Family_tree = function() {
                 }
                 update(paths[i]);
             }
-        if (i == paths.length - 2) {
-            centerNode(paths[i])
-        }
+            if (i == paths.length - 2) {
+                centerNode(paths[i])
+            }
         }
     }
 
