@@ -43,6 +43,7 @@ var Family_tree = function() {
         root.children.forEach(collapse);
         var query = document.getElementById("search_input").value.toLowerCase();
         var find_all = filterQuery(query);
+        clearSearchResultsTable(); // clear previous search results
         if (find_all.length <= 1) { // 0 or 1 node matches this query
             var path = searchTree(root, query, []);
             if (document.getElementById("error_message")) {
@@ -82,6 +83,21 @@ var Family_tree = function() {
                     i = 1;
                 }
             });
+        }
+    }
+
+    function clearSearchResultsTable() {
+        var row1 = document.getElementById("results_row1");
+        var row2 = document.getElementById("results_row2");
+        var row3 = document.getElementById("results_row3");
+        while (row1.firstChild) {
+            row1.removeChild(row1.firstChild);
+        }
+        while (row2.firstChild) {
+            row2.removeChild(row2.firstChild);
+        }
+        while (row3.firstChild) {
+            row3.removeChild(row3.firstChild);
         }
     }
 
