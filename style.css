@@ -45,10 +45,11 @@ body {
 
 #search_results {
   pointer-events: fill;
+  padding-left: 15px;
 }
 
 #search_results_table {
-  
+
 }
 
 #search_results td {

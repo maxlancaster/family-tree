@@ -44,24 +44,28 @@ var Family_tree = function() {
         var query = document.getElementById("search_input").value.toLowerCase();
         var find_all = filterQuery(query);
         clearSearchResultsTable(); // clear previous search results
-        if (find_all.length <= 1) { // 0 or 1 node matches this query
+        clearErrorMessages(); // clear error messages
+        if (find_all.length === 0) { // no results
+            var no_results = document.createElement("p");
+            no_results.id = "error_message";
+            //todo: remove this XSS vuln lol
+            no_results.innerHTML = "no results found for query: " + query;
+            document.getElementById("input_section").appendChild(no_results);
+            root.children.forEach(collapse);
+        } else if (find_all.length > 18) { // too many results to display
+            var too_many_results = document.createElement("p");
+            too_many_results.id = "error_message";
+            //todo: remove this XSS vuln lol
+            too_many_results.innerHTML = "too many results. please be more specific.";
+            document.getElementById("input_section").appendChild(too_many_results);
+            root.children.forEach(collapse);
+        } else if (find_all.length === 1) { // 0 or 1 node matches this query
             var path = searchTree(root, query, []);
-            if (document.getElementById("error_message")) {
-                var error_node = document.getElementById("error_message");
-                document.getElementById("input_section").removeChild(error_node);
-            }
-            if (path) {
+            // if (path) {
                 console.log(path);
                 openPaths(path);
                 highlightPath(path[path.length-1]); // highlight the path to the leaf
-            } else {
-                var no_results = document.createElement("p");
-                no_results.id = "error_message";
-                //todo: remove this XSS vuln lol
-                no_results.innerHTML = "no results found for query: " + query;
-                document.getElementById("input_section").appendChild(no_results);
-                root.children.forEach(collapse);
-            }
+            // }
         } else { // multiple nodes match this query, display the results
             var i = 1;
             find_all = find_all.sort();
@@ -83,6 +87,13 @@ var Family_tree = function() {
                     i = 1;
                 }
             });
+        }
+    }
+
+    function clearErrorMessages() {
+        if (document.getElementById("error_message")) {
+            var error_node = document.getElementById("error_message");
+            document.getElementById("input_section").removeChild(error_node);
         }
     }
 
