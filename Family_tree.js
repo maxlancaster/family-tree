@@ -45,48 +45,48 @@ var Family_tree = function() {
         var find_all = filterQuery(query);
         clearSearchResultsTable(); // clear previous search results
         clearErrorMessages(); // clear error messages
-        if (find_all.length === 0) { // no results
-            var no_results = document.createElement("p");
-            no_results.id = "error_message";
-            //todo: remove this XSS vuln lol
-            no_results.innerHTML = "no results found for query: " + query;
-            document.getElementById("input_section").appendChild(no_results);
-            root.children.forEach(collapse);
-        } else if (find_all.length > 18) { // too many results to display
-            var too_many_results = document.createElement("p");
-            too_many_results.id = "error_message";
-            //todo: remove this XSS vuln lol
-            too_many_results.innerHTML = "too many results. please be more specific.";
-            document.getElementById("input_section").appendChild(too_many_results);
-            root.children.forEach(collapse);
-        } else if (find_all.length === 1) { // 0 or 1 node matches this query
-            var path = searchTree(root, query, []);
-            // if (path) {
+        if (query) {
+           if (find_all.length === 0) { // no results
+                var no_results = document.createElement("p");
+                no_results.id = "error_message";
+                //todo: remove this XSS vuln lol
+                no_results.innerHTML = "no results found for query: " + query;
+                document.getElementById("input_section").appendChild(no_results);
+                root.children.forEach(collapse);
+            } else if (find_all.length > 18) { // too many results to display
+                var too_many_results = document.createElement("p");
+                too_many_results.id = "error_message";
+                //todo: remove this XSS vuln lol
+                too_many_results.innerHTML = "too many results. please be more specific.";
+                document.getElementById("input_section").appendChild(too_many_results);
+                root.children.forEach(collapse);
+            } else if (find_all.length === 1) { // 1 node matches this query
+                var path = searchTree(root, query, []);
                 console.log(path);
                 openPaths(path);
                 highlightPath(path[path.length-1]); // highlight the path to the leaf
-            // }
-        } else { // multiple nodes match this query, display the results
-            var i = 1;
-            find_all = find_all.sort();
-            find_all.forEach(function(el) {
-                if (i === 1) {
-                    var row = document.getElementById("results_row1");
+            } else { // multiple nodes match this query, display the results
+                var i = 1;
+                find_all = find_all.sort();
+                find_all.forEach(function(el) {
+                    var row;
+                    if (i === 1) {
+                        row = document.getElementById("results_row1");
+                    } else if (i === 2) {
+                        row = document.getElementById("results_row2");
+                    } else if (i === 3) {
+                        row = document.getElementById("results_row3");
+                    }
                     var cell = row.insertCell(-1);
-                    cell.innerHTML = el;
+                    var link = document.createElement("a");
+                    link.innerHTML = el;
+                    cell.appendChild(link);
                     i++;
-                } else if (i === 2) {
-                    var row = document.getElementById("results_row2");
-                    var cell = row.insertCell(-1);
-                    cell.innerHTML = el;
-                    i++;
-                } else if (i === 3) {
-                    var row = document.getElementById("results_row3");
-                    var cell = row.insertCell(-1);
-                    cell.innerHTML = el;
-                    i = 1;
-                }
-            });
+                    if (i === 4) {
+                        i = 1;
+                    }
+                });
+            }
         }
     }
 

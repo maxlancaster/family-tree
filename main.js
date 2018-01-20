@@ -1,6 +1,8 @@
 (function() {
     var tree = Family_tree();
 
+    document.getElementById("search_input").focus();
+
     document.getElementById("search_button").addEventListener("click", function(e) {
         tree.search();
     });

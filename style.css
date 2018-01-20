@@ -57,6 +57,11 @@ body {
   font-weight: bold;
 }
 
+#search_results a {
+  /*color: green;*/
+  cursor: pointer;
+}
+
 #title {
     margin-top: 5%;
     margin-left: 5%;
