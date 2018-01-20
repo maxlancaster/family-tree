@@ -56,12 +56,32 @@ var Family_tree = function() {
             } else {
                 var no_results = document.createElement("p");
                 no_results.id = "error_message";
+                //todo: remove this XSS vuln lol
                 no_results.innerHTML = "no results found for query: " + query;
                 document.getElementById("input_section").appendChild(no_results);
                 root.children.forEach(collapse);
             }
-        } else { // multiple nodes match this query
-            
+        } else { // multiple nodes match this query, display the results
+            var i = 1;
+            find_all = find_all.sort();
+            find_all.forEach(function(el) {
+                if (i === 1) {
+                    var row = document.getElementById("results_row1");
+                    var cell = row.insertCell(-1);
+                    cell.innerHTML = el;
+                    i++;
+                } else if (i === 2) {
+                    var row = document.getElementById("results_row2");
+                    var cell = row.insertCell(-1);
+                    cell.innerHTML = el;
+                    i++;
+                } else if (i === 3) {
+                    var row = document.getElementById("results_row3");
+                    var cell = row.insertCell(-1);
+                    cell.innerHTML = el;
+                    i = 1;
+                }
+            });
         }
     }
 
