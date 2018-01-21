@@ -58,7 +58,7 @@ body {
 }
 
 #search_results a {
-  /*color: green;*/
+  color: green;
   cursor: pointer;
 }
 

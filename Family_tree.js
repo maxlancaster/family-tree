@@ -80,6 +80,12 @@ var Family_tree = function() {
                     var cell = row.insertCell(-1);
                     var link = document.createElement("a");
                     link.innerHTML = el;
+                    link.onclick = function() {
+                        var path = searchTree(root, el.toLowerCase(), []);
+                        console.log(path);
+                        openPaths(path);
+                        highlightPath(path[path.length-1]);
+                    };
                     cell.appendChild(link);
                     i++;
                     if (i === 4) {
@@ -123,6 +129,7 @@ var Family_tree = function() {
         root.children = root._children;
         root._children = null;
         update(root);
+        centerNode(root);
     }
 
     // helper function to return a list of nodes for which the query matches
