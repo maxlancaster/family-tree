@@ -47,18 +47,16 @@ var Family_tree = function() {
         clearErrorMessages(); // clear error messages
         if (query) {
            if (find_all.length === 0) { // no results
-                var no_results = document.createElement("p");
+                var no_results = document.createElement("td");
                 no_results.id = "error_message";
-                //todo: remove this XSS vuln lol
-                no_results.innerHTML = "no results found for query: " + query;
-                document.getElementById("input_section").appendChild(no_results);
+                no_results.innerHTML = "no results found";
+                document.getElementById("results_row1").appendChild(no_results);
                 root.children.forEach(collapse);
             } else if (find_all.length > 18) { // too many results to display
-                var too_many_results = document.createElement("p");
+                var too_many_results = document.createElement("td");
                 too_many_results.id = "error_message";
-                //todo: remove this XSS vuln lol
                 too_many_results.innerHTML = "too many results. please be more specific.";
-                document.getElementById("input_section").appendChild(too_many_results);
+                document.getElementById("results_row1").appendChild(too_many_results);
                 root.children.forEach(collapse);
             } else if (find_all.length === 1) { // 1 node matches this query
                 var path = searchTree(root, query, []);
