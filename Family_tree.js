@@ -361,7 +361,7 @@ var Family_tree = function() {
         if (d3.event.defaultPrevented) return; // click suppressed
         d = toggleChildren(d);
         update(d);
-        centerNode(d);
+        centerNode(d, true);
     }
 
     function update(source) {
