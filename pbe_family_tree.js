@@ -79,7 +79,10 @@ var pbe_family_tree = {
                                     "children": [{
                                         "name": "Bob Lambe 1974",
                                             "children": [{
-                                                "name": "Tom Mckim 1975"
+                                                "name": "Tom Mckim 1975",
+                                                    "children": [{
+                                                        "name": "Tom Hanschen 1978"
+                                                    }]
                                             }]
                                     }]
                             }]},
@@ -653,6 +656,12 @@ var pbe_family_tree = {
                     "children": [{
                         "name": "Juan Ocampo 1976",
                             "children": [{
+                                "name": "Kristopher Horvath 1977",
+                                    "children": [{
+                                        "name": "David Loo 1978"
+                                    }]
+                            },
+                            {
                                 "name": "Doug Morrow 1979",
                                     "children": [{
                                         "name": "Terence Chen 1980",
@@ -1041,7 +1050,7 @@ var pbe_family_tree = {
                                                     "children": [{
                                                         "name": "Gary Gruberth 1989",
                                                             "children": [{
-                                                                "name": "Kevin Robinson 1990",
+                                                                "name": "Kevin Robison 1990",
                                                                     "children": [{
                                                                         "name": "Bob Amini 1992"
                                                                     }]
